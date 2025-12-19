@@ -1,10 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-<<<<<<< HEAD
 import { ArrowLeft, MapPin, Phone, Clock, Star, Navigation, Filter, Search, Loader2, ArrowRight, X, Home, User, PawPrint, LogOut } from 'lucide-react';
-=======
-import { ArrowLeft, MapPin, Phone, Clock, Star, Navigation, Filter, Search } from 'lucide-react';
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -13,7 +9,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-<<<<<<< HEAD
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -30,19 +25,12 @@ import { VetProvider } from '@/types';
 import { providerApi, recommendationsApi, VetRecommendation } from '@/lib/api';
 import { toast } from 'sonner';
 import { useAuth } from '@/contexts/AuthContext';
-=======
-import { MOCK_PROVIDERS } from '@/data/mockData';
-import { VetProvider } from '@/types';
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
 
 const Providers: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const locationState = location.state as any;
-<<<<<<< HEAD
   const { user, logout, isAuthenticated } = useAuth();
-=======
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCity, setSelectedCity] = useState<string>('all');
@@ -50,7 +38,6 @@ const Providers: React.FC = () => {
   const [showOpenNow, setShowOpenNow] = useState(false);
   const [sortBy, setSortBy] = useState<'distance' | 'rating'>('distance');
   const [providers, setProviders] = useState<VetProvider[]>(MOCK_PROVIDERS);
-<<<<<<< HEAD
   const [loadingNearby, setLoadingNearby] = useState(false);
   const [usingRealData, setUsingRealData] = useState(false);
   const [searchPincode, setSearchPincode] = useState('');
@@ -61,8 +48,6 @@ const Providers: React.FC = () => {
   const [modalPincode, setModalPincode] = useState('');
   const [modalCity, setModalCity] = useState('');
   const [allCities, setAllCities] = useState<string[]>([]);
-=======
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
 
   // Initialize from navigation state if available
   useEffect(() => {
@@ -73,7 +58,6 @@ const Providers: React.FC = () => {
       if (locationState.providers) {
         setProviders(locationState.providers);
       }
-<<<<<<< HEAD
       // Handle pin code search from landing page
       if (locationState.searchByPincode && locationState.pincode) {
         setSearchPincode(locationState.pincode);
@@ -257,17 +241,6 @@ const Providers: React.FC = () => {
   // Use allCities for the dropdown to show all cities even after filtering
   const cityOptions = allCities.length > 0 ? allCities : cities;
 
-=======
-    }
-  }, [locationState]);
-
-  // Get unique cities from providers
-  const cities = useMemo(() => {
-    const uniqueCities = Array.from(new Set(providers.map(p => p.city)));
-    return uniqueCities.sort();
-  }, [providers]);
-
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
   // Filter and sort providers
   const filteredProviders = useMemo(() => {
     let filtered = [...providers];
@@ -317,7 +290,6 @@ const Providers: React.FC = () => {
     window.location.href = `tel:${phone}`;
   };
 
-<<<<<<< HEAD
   // Fetch nearby vets using geolocation
   const handleFindNearbyVets = () => {
     if (!navigator.geolocation) {
@@ -397,14 +369,11 @@ const Providers: React.FC = () => {
       .slice(0, 2);
   };
 
-=======
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white border-b sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4">
-<<<<<<< HEAD
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <Button variant="ghost" size="icon" onClick={() => navigate(-1)}>
@@ -471,22 +440,11 @@ const Providers: React.FC = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             )}
-=======
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" onClick={() => navigate(-1)}>
-              <ArrowLeft className="w-5 h-5" />
-            </Button>
-            <div className="flex items-center gap-2">
-              <MapPin className="w-6 h-6 text-[#FF385C]" />
-              <h1 className="text-xl font-bold">Find Veterinary Clinics</h1>
-            </div>
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
           </div>
         </div>
       </header>
 
       <div className="container mx-auto px-4 py-6 max-w-6xl">
-<<<<<<< HEAD
         {/* Search Modal */}
         <Dialog open={showSearchModal} onOpenChange={setShowSearchModal}>
           <DialogContent className="sm:max-w-[500px]">
@@ -652,8 +610,6 @@ const Providers: React.FC = () => {
           </Alert>
         )}
 
-=======
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
         {/* Location-based results alert */}
         {locationState?.openNow && (
           <Alert className="mb-6 border-green-200 bg-green-50">
@@ -686,7 +642,6 @@ const Providers: React.FC = () => {
               </div>
 
               {/* Filters Row */}
-<<<<<<< HEAD
               <div className="grid md:grid-cols-5 gap-4">
                 {/* PIN Code Filter */}
                 <div className="space-y-2">
@@ -700,27 +655,16 @@ const Providers: React.FC = () => {
                   />
                 </div>
 
-=======
-              <div className="grid md:grid-cols-4 gap-4">
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
                 {/* City Filter */}
                 <div className="space-y-2">
                   <Label>City</Label>
                   <Select value={selectedCity} onValueChange={setSelectedCity}>
-<<<<<<< HEAD
                     <SelectTrigger className="h-10">
-=======
-                    <SelectTrigger>
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
                       <SelectValue placeholder="All cities" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">All Cities</SelectItem>
-<<<<<<< HEAD
                       {cityOptions.map((city) => (
-=======
-                      {cities.map((city) => (
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
                         <SelectItem key={city} value={city}>
                           {city}
                         </SelectItem>
@@ -733,11 +677,7 @@ const Providers: React.FC = () => {
                 <div className="space-y-2">
                   <Label>Sort By</Label>
                   <Select value={sortBy} onValueChange={(value) => setSortBy(value as 'distance' | 'rating')}>
-<<<<<<< HEAD
                     <SelectTrigger className="h-10">
-=======
-                    <SelectTrigger>
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -749,11 +689,7 @@ const Providers: React.FC = () => {
 
                 {/* 24x7 Filter */}
                 <div className="flex items-end">
-<<<<<<< HEAD
                   <div className="flex items-center space-x-2 h-10">
-=======
-                  <div className="flex items-center space-x-2 h-12">
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
                     <Checkbox
                       id="24x7"
                       checked={show24x7Only}
@@ -770,11 +706,7 @@ const Providers: React.FC = () => {
 
                 {/* Open Now Filter */}
                 <div className="flex items-end">
-<<<<<<< HEAD
                   <div className="flex items-center space-x-2 h-10">
-=======
-                  <div className="flex items-center space-x-2 h-12">
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
                     <Checkbox
                       id="openNow"
                       checked={showOpenNow}
@@ -789,7 +721,6 @@ const Providers: React.FC = () => {
                   </div>
                 </div>
               </div>
-<<<<<<< HEAD
 
               {/* Action Buttons - Apply filters and Clear */}
               <div className="flex justify-end gap-2 pt-2">
@@ -884,8 +815,6 @@ const Providers: React.FC = () => {
                   )}
                 </Button>
               </div>
-=======
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
             </div>
           </CardContent>
         </Card>
@@ -1003,7 +932,6 @@ const Providers: React.FC = () => {
           </div>
         )}
 
-<<<<<<< HEAD
         {/* Load More Button - Only show when using pin code search */}
         {usingRealData && searchPincode && filteredProviders.length > 0 && (
           <div className="mt-6 text-center">
@@ -1031,8 +959,6 @@ const Providers: React.FC = () => {
           </div>
         )}
 
-=======
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
         {/* Emergency Notice */}
         <Card className="mt-6 border-red-200 bg-red-50">
           <CardContent className="pt-6">

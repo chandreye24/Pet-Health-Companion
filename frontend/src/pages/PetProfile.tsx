@@ -1,21 +1,14 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Camera, Plus, X, PawPrint, Edit, Trash2, Stethoscope, LogOut, User, Home, UserCircle, ChevronDown, ChevronUp, Clock, AlertCircle, CheckCircle, Info, History, Sparkles, MapPin, Download, Check } from 'lucide-react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-=======
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Camera, Plus, X } from 'lucide-react';
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-<<<<<<< HEAD
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -256,31 +249,18 @@ const PetProfile: React.FC = () => {
 
     return narrative.join(' ');
   };
-=======
-import { usePets } from '@/contexts/PetContext';
-import { DOG_BREEDS } from '@/data/mockData';
-import { toast } from 'sonner';
-
-const PetProfile: React.FC = () => {
-  const navigate = useNavigate();
-  const { addPet, pets } = usePets();
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
   
   const [formData, setFormData] = useState({
     name: '',
     breed: '',
     age: '',
-<<<<<<< HEAD
     gender: '' as 'male' | 'female' | '',
-=======
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     weight: '',
     lifestyle: '' as 'indoor' | 'outdoor' | 'mixed' | '',
     photo: '',
   });
   
   const [conditions, setConditions] = useState<string[]>([]);
-<<<<<<< HEAD
   const [isConditionsOpen, setIsConditionsOpen] = useState(false);
   const [allergies, setAllergies] = useState<string[]>([]);
   const [isAllergiesOpen, setIsAllergiesOpen] = useState(false);
@@ -320,12 +300,6 @@ const PetProfile: React.FC = () => {
       }
     }
   }, [location.state, pets]);
-=======
-  const [newCondition, setNewCondition] = useState('');
-  const [allergies, setAllergies] = useState<string[]>([]);
-  const [newAllergy, setNewAllergy] = useState('');
-  const [errors, setErrors] = useState<Record<string, string>>({});
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
 
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
@@ -349,13 +323,10 @@ const PetProfile: React.FC = () => {
       }
     }
     
-<<<<<<< HEAD
     if (!formData.gender) {
       newErrors.gender = 'Gender is required';
     }
     
-=======
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     if (formData.weight) {
       const weightNum = parseFloat(formData.weight);
       if (isNaN(weightNum) || weightNum <= 0 || weightNum > 150) {
@@ -383,7 +354,6 @@ const PetProfile: React.FC = () => {
     }
   };
 
-<<<<<<< HEAD
   const toggleCondition = (condition: string) => {
     setConditions(prev =>
       prev.includes(condition)
@@ -416,31 +386,6 @@ const PetProfile: React.FC = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-=======
-  const addCondition = () => {
-    if (newCondition.trim() && !conditions.includes(newCondition.trim())) {
-      setConditions([...conditions, newCondition.trim()]);
-      setNewCondition('');
-    }
-  };
-
-  const removeCondition = (condition: string) => {
-    setConditions(conditions.filter(c => c !== condition));
-  };
-
-  const addAllergy = () => {
-    if (newAllergy.trim() && !allergies.includes(newAllergy.trim())) {
-      setAllergies([...allergies, newAllergy.trim()]);
-      setNewAllergy('');
-    }
-  };
-
-  const removeAllergy = (allergy: string) => {
-    setAllergies(allergies.filter(a => a !== allergy));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     e.preventDefault();
     
     if (!validateForm()) {
@@ -454,7 +399,6 @@ const PetProfile: React.FC = () => {
     }
 
     try {
-<<<<<<< HEAD
       console.log('Conditions before creating pet:', conditions);
       console.log('Allergies before creating pet:', allergies);
       
@@ -896,28 +840,10 @@ const PetProfile: React.FC = () => {
       toast.error('Failed to delete some summaries. Please try again.');
     } finally {
       setIsDeletingSummaries(false);
-=======
-      addPet({
-        name: formData.name.trim(),
-        breed: formData.breed,
-        age: parseFloat(formData.age),
-        weight: formData.weight ? parseFloat(formData.weight) : undefined,
-        lifestyle: formData.lifestyle || undefined,
-        photo: formData.photo || undefined,
-        conditions: conditions.length > 0 ? conditions : undefined,
-        allergies: allergies.length > 0 ? allergies : undefined,
-      });
-      
-      toast.success('Pet profile created successfully!');
-      navigate('/dashboard');
-    } catch (error) {
-      toast.error('Failed to create pet profile');
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     }
   };
 
   return (
-<<<<<<< HEAD
     <>
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b sticky top-0 z-10">
@@ -985,21 +911,10 @@ const PetProfile: React.FC = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             )}
-=======
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard')}>
-              <ArrowLeft className="w-5 h-5" />
-            </Button>
-            <h1 className="text-xl font-bold">Create Pet Profile</h1>
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
           </div>
         </div>
       </header>
 
-<<<<<<< HEAD
       <div className="container mx-auto px-4 py-8 max-w-6xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Create Pet Form */}
@@ -2124,201 +2039,6 @@ const PetProfile: React.FC = () => {
         </DialogContent>
       </Dialog>
     </>
-=======
-      <div className="container mx-auto px-4 py-8 max-w-2xl">
-        <Card>
-          <CardHeader>
-            <CardTitle>Pet Information</CardTitle>
-            <CardDescription>
-              Fields marked with * are required. Add as much detail as possible for personalized care recommendations.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Photo Upload */}
-              <div className="flex justify-center">
-                <div className="relative">
-                  {formData.photo ? (
-                    <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-[#FF385C]">
-                      <img src={formData.photo} alt="Pet" className="w-full h-full object-cover" />
-                      <button
-                        type="button"
-                        onClick={() => setFormData(prev => ({ ...prev, photo: '' }))}
-                        className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    </div>
-                  ) : (
-                    <label className="w-32 h-32 rounded-full border-2 border-dashed border-gray-300 flex flex-col items-center justify-center cursor-pointer hover:border-[#FF385C] transition-colors">
-                      <Camera className="w-8 h-8 text-gray-400 mb-1" />
-                      <span className="text-xs text-gray-500">Add Photo</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handlePhotoUpload}
-                        className="hidden"
-                      />
-                    </label>
-                  )}
-                </div>
-              </div>
-
-              {/* Name */}
-              <div className="space-y-2">
-                <Label htmlFor="name">Pet Name *</Label>
-                <Input
-                  id="name"
-                  placeholder="e.g., Max, Bella"
-                  value={formData.name}
-                  onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                  className={errors.name ? 'border-red-500' : ''}
-                />
-                {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
-              </div>
-
-              {/* Breed */}
-              <div className="space-y-2">
-                <Label htmlFor="breed">Breed *</Label>
-                <Select
-                  value={formData.breed}
-                  onValueChange={(value) => setFormData(prev => ({ ...prev, breed: value }))}
-                >
-                  <SelectTrigger className={errors.breed ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select breed" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {DOG_BREEDS.map((breed) => (
-                      <SelectItem key={breed} value={breed}>
-                        {breed}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {errors.breed && <p className="text-sm text-red-500">{errors.breed}</p>}
-              </div>
-
-              {/* Age */}
-              <div className="space-y-2">
-                <Label htmlFor="age">Age (years) *</Label>
-                <Input
-                  id="age"
-                  type="number"
-                  step="0.1"
-                  placeholder="e.g., 3.5"
-                  value={formData.age}
-                  onChange={(e) => setFormData(prev => ({ ...prev, age: e.target.value }))}
-                  className={errors.age ? 'border-red-500' : ''}
-                />
-                {errors.age && <p className="text-sm text-red-500">{errors.age}</p>}
-              </div>
-
-              {/* Weight */}
-              <div className="space-y-2">
-                <Label htmlFor="weight">Weight (kg) - Optional</Label>
-                <Input
-                  id="weight"
-                  type="number"
-                  step="0.1"
-                  placeholder="e.g., 25.5"
-                  value={formData.weight}
-                  onChange={(e) => setFormData(prev => ({ ...prev, weight: e.target.value }))}
-                  className={errors.weight ? 'border-red-500' : ''}
-                />
-                {errors.weight && <p className="text-sm text-red-500">{errors.weight}</p>}
-              </div>
-
-              {/* Lifestyle */}
-              <div className="space-y-2">
-                <Label htmlFor="lifestyle">Lifestyle - Optional</Label>
-                <Select
-                  value={formData.lifestyle}
-                  onValueChange={(value) => setFormData(prev => ({ ...prev, lifestyle: value as any }))}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select lifestyle" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="indoor">Indoor</SelectItem>
-                    <SelectItem value="outdoor">Outdoor</SelectItem>
-                    <SelectItem value="mixed">Mixed</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Medical Conditions */}
-              <div className="space-y-2">
-                <Label>Medical Conditions - Optional</Label>
-                <div className="flex gap-2">
-                  <Input
-                    placeholder="e.g., Hip Dysplasia"
-                    value={newCondition}
-                    onChange={(e) => setNewCondition(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addCondition())}
-                  />
-                  <Button type="button" onClick={addCondition} size="icon">
-                    <Plus className="w-4 h-4" />
-                  </Button>
-                </div>
-                {conditions.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    {conditions.map((condition) => (
-                      <Badge key={condition} variant="secondary" className="gap-1">
-                        {condition}
-                        <button
-                          type="button"
-                          onClick={() => removeCondition(condition)}
-                          className="ml-1 hover:text-red-500"
-                        >
-                          <X className="w-3 h-3" />
-                        </button>
-                      </Badge>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Allergies */}
-              <div className="space-y-2">
-                <Label>Known Allergies - Optional</Label>
-                <div className="flex gap-2">
-                  <Input
-                    placeholder="e.g., Chicken, Wheat"
-                    value={newAllergy}
-                    onChange={(e) => setNewAllergy(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addAllergy())}
-                  />
-                  <Button type="button" onClick={addAllergy} size="icon">
-                    <Plus className="w-4 h-4" />
-                  </Button>
-                </div>
-                {allergies.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    {allergies.map((allergy) => (
-                      <Badge key={allergy} variant="secondary" className="gap-1">
-                        {allergy}
-                        <button
-                          type="button"
-                          onClick={() => removeAllergy(allergy)}
-                          className="ml-1 hover:text-red-500"
-                        >
-                          <X className="w-3 h-3" />
-                        </button>
-                      </Badge>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <Button type="submit" className="w-full bg-[#FF385C] hover:bg-[#E31C5F] h-12">
-                Create Pet Profile
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
   );
 };
 

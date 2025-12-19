@@ -45,13 +45,9 @@
     "cmdk": "^1.0.0",
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.3.0",
-<<<<<<< HEAD
     "html2canvas": "^1.4.1",
     "input-otp": "^1.2.4",
     "jspdf": "^3.0.4",
-=======
-    "input-otp": "^1.2.4",
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     "lucide-react": "^0.462.0",
     "next-themes": "^0.3.0",
     "react": "^18.3.1",

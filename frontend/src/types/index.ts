@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 export interface Address {
   street?: string;
   city: string;
@@ -14,13 +13,6 @@ export interface User {
   contactNumber?: string;
   emergencyContact?: string;
   address?: Address;
-=======
-export interface User {
-  id: string;
-  email: string;
-  phone: string;
-  name: string;
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
   location: {
     latitude: number;
     longitude: number;
@@ -28,10 +20,7 @@ export interface User {
     state: string;
   } | null;
   createdAt: string;
-<<<<<<< HEAD
   updatedAt: string;
-=======
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
   termsAccepted: boolean;
   ageConfirmed: boolean;
 }
@@ -42,10 +31,7 @@ export interface Pet {
   name: string;
   breed: string;
   age: number; // in years
-<<<<<<< HEAD
   gender: 'male' | 'female';
-=======
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
   weight?: number; // in kg
   photo?: string;
   lifestyle?: 'indoor' | 'outdoor' | 'mixed';

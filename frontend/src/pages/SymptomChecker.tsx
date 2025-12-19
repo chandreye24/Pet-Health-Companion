@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-<<<<<<< HEAD
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, Send, Upload, Video, AlertCircle, CheckCircle, Clock, Info, Stethoscope, ThumbsUp, ThumbsDown, User, Bot, Image as ImageIcon, X, LogIn, PawPrint, XCircle, MapPin, Phone, Navigation, ChevronDown, ChevronUp, Loader2, Home, UserCircle, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -18,15 +17,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-=======
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Send, Upload, Video, AlertCircle, CheckCircle, Clock, Info, Stethoscope, ThumbsUp, ThumbsDown, User, Bot, Image as ImageIcon, X, LogIn } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent } from '@/components/ui/card';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Badge } from '@/components/ui/badge';
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
 import {
   AlertDialog,
   AlertDialogAction,
@@ -37,20 +27,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-<<<<<<< HEAD
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-=======
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
 import { analyzeSymptoms } from '@/utils/aiMock';
 import { SymptomCategory, HealthSubcategory } from '@/types';
 import { toast } from 'sonner';
 import { useAuth } from '@/contexts/AuthContext';
 import { usePets } from '@/contexts/PetContext';
-<<<<<<< HEAD
 import { symptomCheckApi, providerApi, recommendationsApi } from '@/lib/api';
-=======
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
 
 const HEALTH_SUBCATEGORIES: HealthSubcategory[] = [
   'Digestive Issues',
@@ -90,18 +74,13 @@ interface ChatSession {
     images: string[];
     video?: string;
   };
-<<<<<<< HEAD
   conversationState: 'greeting' | 'category' | 'subcategory' | 'symptoms' | 'media' | 'analyzing' | 'complete' | 'vet_questions' | 'general_followup';
-=======
-  conversationState: 'greeting' | 'category' | 'subcategory' | 'symptoms' | 'media' | 'analyzing' | 'complete';
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
   analysisResult: AnalysisResult | null;
   timestamp: string;
 }
 
 const SymptomChecker: React.FC = () => {
   const navigate = useNavigate();
-<<<<<<< HEAD
   const location = useLocation();
   const { isAuthenticated, user, logout } = useAuth();
   const { selectedPet, pets, selectPet } = usePets();
@@ -112,14 +91,6 @@ const SymptomChecker: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [conversationState, setConversationState] = useState<'greeting' | 'category' | 'subcategory' | 'symptoms' | 'media' | 'analyzing' | 'complete' | 'vet_questions' | 'general_followup'>('category');
-=======
-  const { isAuthenticated, user } = useAuth();
-  const { selectedPet, pets } = usePets();
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [inputValue, setInputValue] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
-  const [conversationState, setConversationState] = useState<'greeting' | 'category' | 'subcategory' | 'symptoms' | 'media' | 'analyzing' | 'complete'>('category');
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
   const [collectedData, setCollectedData] = useState<{
     category?: SymptomCategory;
     subcategory?: HealthSubcategory;
@@ -128,7 +99,6 @@ const SymptomChecker: React.FC = () => {
     video?: string;
   }>({ images: [] });
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
-<<<<<<< HEAD
   const [currentCheckId, setCurrentCheckId] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<'up' | 'down' | null>(null);
   const [showNewChatDialog, setShowNewChatDialog] = useState(false);
@@ -154,11 +124,6 @@ const SymptomChecker: React.FC = () => {
   const [selectedVetForBooking, setSelectedVetForBooking] = useState<any>(null);
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
-=======
-  const [feedback, setFeedback] = useState<'up' | 'down' | null>(null);
-  const [showNewChatDialog, setShowNewChatDialog] = useState(false);
-  const [showLoginBanner, setShowLoginBanner] = useState(true);
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const videoInputRef = useRef<HTMLInputElement>(null);
@@ -169,7 +134,6 @@ const SymptomChecker: React.FC = () => {
   };
 
   useEffect(() => {
-<<<<<<< HEAD
     // Don't auto-scroll when vet list is being displayed
     // This allows users to stay at their current scroll position when vets load
     if (!showVetList) {
@@ -329,30 +293,6 @@ const SymptomChecker: React.FC = () => {
     localStorage.removeItem(sessionId.current);
     initializeNewChat();
   }, [initializedFromNav, location.state, messages.length, currentPet, isAuthenticated, pets.length]);
-=======
-    scrollToBottom();
-  }, [messages]);
-
-  // Load existing session on mount
-  useEffect(() => {
-    const savedSession = localStorage.getItem(sessionId.current);
-    if (savedSession) {
-      try {
-        const session: ChatSession = JSON.parse(savedSession);
-        setMessages(session.messages);
-        setCollectedData(session.collectedData);
-        setConversationState(session.conversationState);
-        setAnalysisResult(session.analysisResult);
-        toast.info('Previous chat session restored');
-      } catch (error) {
-        console.error('Failed to restore session:', error);
-        initializeNewChat();
-      }
-    } else {
-      initializeNewChat();
-    }
-  }, []);
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
 
   // Save session whenever state changes
   useEffect(() => {
@@ -368,7 +308,6 @@ const SymptomChecker: React.FC = () => {
     }
   }, [messages, collectedData, conversationState, analysisResult]);
 
-<<<<<<< HEAD
   // Save chat to backend when user closes or navigates away
   const saveChatToBackend = async () => {
     if (currentCheckId && isAuthenticated && messages.length > 0) {
@@ -550,15 +489,6 @@ const SymptomChecker: React.FC = () => {
     } else {
       greeting += ` What would you like to check today?`;
     }
-=======
-  const initializeNewChat = () => {
-    const petName = selectedPet?.name || (pets.length > 0 ? pets[0].name : null);
-    const greeting = petName
-      ? `Hi! I'm here to help with ${petName}'s health. What would you like to check today?`
-      : isAuthenticated
-      ? `Hi ${user?.name}! I'm here to help with your pet's health. What would you like to check today?`
-      : `Hi! I'm your AI pet health assistant. I can help assess your pet's symptoms. What would you like to check today?`;
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
 
     addBotMessage(greeting, [
       { label: '🍖 Nutrition', value: 'Nutrition' },
@@ -629,12 +559,8 @@ const SymptomChecker: React.FC = () => {
       );
     } else {
       setConversationState('symptoms');
-<<<<<<< HEAD
       const pet = currentPet || selectedPet;
       const petName = pet?.name || 'your pet';
-=======
-      const petName = selectedPet?.name || 'your pet';
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
       addBotMessage(`Please describe what you're observing about ${petName}'s ${category.toLowerCase()}. You can type details and upload photos/videos below.`);
     }
   };
@@ -643,12 +569,8 @@ const SymptomChecker: React.FC = () => {
     addUserMessage(subcategory);
     setCollectedData(prev => ({ ...prev, subcategory }));
     setConversationState('symptoms');
-<<<<<<< HEAD
     const pet = currentPet || selectedPet;
     const petName = pet?.name || 'your pet';
-=======
-    const petName = selectedPet?.name || 'your pet';
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     addBotMessage(`Please describe the ${subcategory.toLowerCase()} symptoms you're observing in ${petName}. You can type details and upload photos/videos below.`);
   };
 
@@ -658,7 +580,6 @@ const SymptomChecker: React.FC = () => {
       return;
     }
 
-<<<<<<< HEAD
     let symptomsToAnalyze = '';
     
     if (inputValue.trim().length >= 10) {
@@ -670,15 +591,6 @@ const SymptomChecker: React.FC = () => {
     // Update state and perform analysis with the current symptoms value
     setCollectedData(prev => ({ ...prev, symptoms: symptomsToAnalyze }));
     performAnalysis(symptomsToAnalyze);
-=======
-    if (inputValue.trim().length >= 10) {
-      addUserMessage(inputValue);
-      setCollectedData(prev => ({ ...prev, symptoms: inputValue }));
-      setInputValue('');
-    }
-
-    performAnalysis();
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -757,7 +669,6 @@ const SymptomChecker: React.FC = () => {
   };
 
   const generateConversationalResponse = (analysis: AnalysisResult, petName: string): string => {
-<<<<<<< HEAD
     const { riskLevel, summary, detailedSections, immediateActions } = analysis;
     
     // Create a concise, structured response with minimal spacing
@@ -789,70 +700,10 @@ const SymptomChecker: React.FC = () => {
     
     // Add disclaimer with minimal spacing
     response += `\n⚕️ **Note:** This is AI-generated guidance. Always consult a veterinarian for diagnosis and treatment.`;
-=======
-    const { riskLevel, summary, detailedSections, immediateActions, reasoning } = analysis;
-    
-    let response = `Alright, I've reviewed ${petName}'s symptoms carefully. ${summary}\n\n`;
-    
-    if (riskLevel === 'Emergency') {
-      response += `I need to be direct with you - this is an emergency situation. ${reasoning}\n\n`;
-      response += `Here's what you need to do right now:\n`;
-      immediateActions.forEach(action => {
-        response += `• ${action}\n`;
-      });
-      response += `\nPlease don't wait on this. Get ${petName} to an emergency vet immediately. Time really matters here.`;
-    } else if (riskLevel === 'Urgent') {
-      response += `From what you've described, ${petName} needs to see a vet within the next 12-24 hours. ${reasoning}\n\n`;
-      response += `Here's what I recommend:\n`;
-      immediateActions.forEach(action => {
-        response += `• ${action}\n`;
-      });
-      
-      if (detailedSections.length > 0) {
-        response += `\n${detailedSections[0].title}:\n`;
-        detailedSections[0].points.slice(0, 3).forEach(point => {
-          response += `• ${point}\n`;
-        });
-      }
-      
-      response += `\nWhile this isn't immediately life-threatening, it's important not to delay. Early treatment often leads to better outcomes for ${petName}.`;
-    } else if (riskLevel === 'Monitor') {
-      response += `Based on what you've told me, this appears to be something you can monitor at home for now. ${reasoning}\n\n`;
-      response += `Here's my advice:\n`;
-      immediateActions.forEach(action => {
-        response += `• ${action}\n`;
-      });
-      
-      if (detailedSections.length > 0) {
-        response += `\n${detailedSections[0].title}:\n`;
-        detailedSections[0].points.slice(0, 3).forEach(point => {
-          response += `• ${point}\n`;
-        });
-      }
-      
-      response += `\nKeep an eye on ${petName} over the next 24-48 hours. If things get worse or new symptoms appear, don't hesitate to contact your vet.`;
-    } else {
-      response += `Good news - I don't see any immediate concerns with ${petName}. ${reasoning}\n\n`;
-      response += `To keep ${petName} healthy:\n`;
-      immediateActions.forEach(action => {
-        response += `• ${action}\n`;
-      });
-      
-      if (detailedSections.length > 0) {
-        response += `\n${detailedSections[0].title}:\n`;
-        detailedSections[0].points.slice(0, 3).forEach(point => {
-          response += `• ${point}\n`;
-        });
-      }
-      
-      response += `\nYou're doing a great job taking care of ${petName}. Keep up with regular checkups and reach out if anything changes.`;
-    }
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     
     return response;
   };
 
-<<<<<<< HEAD
   // Check if clinic is currently open
   const isClinicOpen = (clinic: any): boolean => {
     // 24/7 clinics are always open
@@ -1522,36 +1373,6 @@ const SymptomChecker: React.FC = () => {
       addBotMessage(`I'm glad I could help with ${petName}! If you have any other concerns, feel free to start a new check anytime.`);
       
       // Note: Messages will be saved after the bot message is added (see useEffect below)
-=======
-  const performAnalysis = async () => {
-    setConversationState('analyzing');
-    const petName = selectedPet?.name || 'your pet';
-    addBotMessage(`Let me take a look at everything you've shared about ${petName}... Give me just a moment.`);
-    
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    const analysis = analyzeSymptoms(
-      collectedData.symptoms || '',
-      collectedData.images,
-      collectedData.category!,
-      collectedData.subcategory,
-      collectedData.video
-    );
-    
-    setAnalysisResult(analysis);
-    setConversationState('complete');
-    
-    const conversationalResponse = generateConversationalResponse(analysis, petName);
-    addBotMessage(conversationalResponse);
-  };
-
-  const handleFeedback = (type: 'up' | 'down') => {
-    setFeedback(type);
-    if (type === 'up') {
-      toast.success('Thank you for your feedback!');
-      const petName = selectedPet?.name || 'your pet';
-      addBotMessage(`I'm glad I could help with ${petName}! If you have any other concerns, feel free to start a new check anytime.`);
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     } else {
       addBotMessage('I appreciate your honesty. What could I have done better to help you? Please select the main issue:', [
         { label: 'UI issue', value: 'ui_issue' },
@@ -1567,7 +1388,6 @@ const SymptomChecker: React.FC = () => {
     }
   };
 
-<<<<<<< HEAD
   // Save messages after feedback is given and bot response is added
   useEffect(() => {
     if (feedback && currentCheckId && isAuthenticated && messages.length > 0) {
@@ -1590,9 +1410,6 @@ const SymptomChecker: React.FC = () => {
   }, [feedback, messages, currentCheckId, isAuthenticated]);
 
   const handleFeedbackReason = async (reason: string) => {
-=======
-  const handleFeedbackReason = (reason: string) => {
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     // Map the reason value to a readable label
     const reasonLabels: Record<string, string> = {
       'ui_issue': 'UI issue',
@@ -1608,7 +1425,6 @@ const SymptomChecker: React.FC = () => {
 
     addUserMessage(reasonLabels[reason] || reason);
     toast.success('Thank you for helping us improve!');
-<<<<<<< HEAD
     
     // Save feedback reason to backend
     if (currentCheckId && isAuthenticated) {
@@ -1624,8 +1440,6 @@ const SymptomChecker: React.FC = () => {
       }
     }
     
-=======
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     addBotMessage('Thanks for that feedback - it really helps me improve. Would you like to start a new health check or head back home?', [
       { label: '🔄 New Check', value: 'restart' },
       { label: '🏠 Go Home', value: 'home' },
@@ -1639,7 +1453,6 @@ const SymptomChecker: React.FC = () => {
       handleSubcategorySelect(value as HealthSubcategory);
     } else if (conversationState === 'complete' && feedback === 'down') {
       handleFeedbackReason(value);
-<<<<<<< HEAD
     } else if (value === 'show_vets') {
       handleVetSearchResponse(true);
     } else if (value === 'no_vets') {
@@ -1653,8 +1466,6 @@ const SymptomChecker: React.FC = () => {
     } else if (value === 'close_chat') {
       // Show feedback dialog before closing
       setShowCloseChatDialog(true);
-=======
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     } else if (value === 'restart') {
       setShowNewChatDialog(true);
     } else if (value === 'home') {
@@ -1664,11 +1475,7 @@ const SymptomChecker: React.FC = () => {
 
   const getRiskColor = (level: string) => {
     switch (level) {
-<<<<<<< HEAD
       case 'Emergency': return 'bg-red-600';
-=======
-      case 'Emergency': return 'bg-red-500';
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
       case 'Urgent': return 'bg-orange-500';
       case 'Monitor': return 'bg-yellow-500';
       case 'Low Risk': return 'bg-green-500';
@@ -1686,7 +1493,6 @@ const SymptomChecker: React.FC = () => {
     }
   };
 
-<<<<<<< HEAD
   const getInitials = (name: string) => {
     return name
       .split(' ')
@@ -1757,13 +1563,10 @@ const SymptomChecker: React.FC = () => {
     }
   };
 
-=======
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
   return (
     <div className="h-screen flex flex-col bg-gray-50">
       {/* Fixed Header */}
       <header className="bg-white border-b px-4 py-3 flex items-center gap-3 flex-shrink-0">
-<<<<<<< HEAD
         <Button variant="ghost" size="icon" onClick={() => {
           // Navigate to pet profile if authenticated, otherwise to landing page
           if (isAuthenticated) {
@@ -1772,16 +1575,12 @@ const SymptomChecker: React.FC = () => {
             navigate('/');
           }
         }}>
-=======
-        <Button variant="ghost" size="icon" onClick={() => navigate('/')}>
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
           <ArrowLeft className="w-5 h-5" />
         </Button>
         <div className="flex items-center gap-2">
           <Stethoscope className="w-5 h-5 text-[#FF385C]" />
           <h1 className="text-lg font-bold">AI Health Check</h1>
         </div>
-<<<<<<< HEAD
         {(currentPet || selectedPet) && (
           <Badge variant="secondary" className="ml-auto flex items-center gap-1">
             <PawPrint className="w-3 h-3" />
@@ -1798,13 +1597,6 @@ const SymptomChecker: React.FC = () => {
             Change Pet
           </Button>
         )}
-=======
-        {selectedPet && (
-          <Badge variant="secondary" className="ml-auto">
-            {selectedPet.name}
-          </Badge>
-        )}
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
         {messages.length > 1 && (
           <Button
             variant="outline"
@@ -1815,7 +1607,6 @@ const SymptomChecker: React.FC = () => {
             New Chat
           </Button>
         )}
-<<<<<<< HEAD
         
         {/* User Profile Dropdown */}
         {isAuthenticated && user && (
@@ -1872,8 +1663,6 @@ const SymptomChecker: React.FC = () => {
             </DropdownMenuContent>
           </DropdownMenu>
         )}
-=======
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
       </header>
 
       {/* Login Banner */}
@@ -1908,7 +1697,6 @@ const SymptomChecker: React.FC = () => {
 
       {/* Analysis Summary */}
       {analysisResult && (
-<<<<<<< HEAD
         <div className={`bg-white border-b px-4 py-3 flex-shrink-0 ${analysisResult.riskLevel === 'Emergency' ? 'animate-pulse' : ''}`}>
           <div className="flex items-center gap-3">
             <div className="relative">
@@ -1925,15 +1713,6 @@ const SymptomChecker: React.FC = () => {
               <h3 className={`text-lg font-bold ${analysisResult.riskLevel === 'Emergency' ? 'text-red-600 animate-pulse' : 'text-gray-900'}`}>
                 {analysisResult.riskLevel}
               </h3>
-=======
-        <div className="bg-white border-b px-4 py-3 flex-shrink-0">
-          <div className="flex items-center gap-3">
-            <div className={`w-12 h-12 rounded-full ${getRiskColor(analysisResult.riskLevel)} flex items-center justify-center flex-shrink-0`}>
-              {React.createElement(getRiskIcon(analysisResult.riskLevel), { className: 'w-6 h-6 text-white' })}
-            </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="text-lg font-bold text-gray-900">{analysisResult.riskLevel}</h3>
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
               <p className="text-sm text-gray-600 line-clamp-2">{analysisResult.summary}</p>
             </div>
           </div>
@@ -2009,7 +1788,6 @@ const SymptomChecker: React.FC = () => {
           </div>
         )}
 
-<<<<<<< HEAD
         {/* Nearby Vets List - AI-powered recommendations */}
         {showVetList && nearbyVets.length > 0 && (
           <div className="space-y-2">
@@ -2171,10 +1949,6 @@ const SymptomChecker: React.FC = () => {
         
         {/* Action Buttons for Emergency Vet Questions - Appears AFTER vet list */}
         {conversationState === 'vet_questions' && showVetList && nearbyVets.length > 0 && (
-=======
-        {/* Feedback Section */}
-        {analysisResult && conversationState === 'complete' && !feedback && (
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
           <div className="flex gap-2 justify-start">
             <div className="w-8 h-8 rounded-full bg-[#FF385C] flex items-center justify-center flex-shrink-0">
               <Bot className="w-5 h-5 text-white" />
@@ -2182,7 +1956,6 @@ const SymptomChecker: React.FC = () => {
             <div className="max-w-[80%]">
               <Card className="border-gray-300">
                 <CardContent className="p-3">
-<<<<<<< HEAD
                   <p className="text-sm font-medium mb-2">What would you like to do next?</p>
                   <div className="flex flex-wrap gap-2">
                     <Button
@@ -2192,34 +1965,14 @@ const SymptomChecker: React.FC = () => {
                       className="text-xs"
                     >
                       💬 Ask About These Clinics
-=======
-                  <p className="text-sm font-medium mb-2">Was this assessment helpful?</p>
-                  <div className="flex gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleFeedback('up')}
-                      className="flex-1"
-                    >
-                      <ThumbsUp className="w-4 h-4 mr-1" />
-                      Yes
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
-<<<<<<< HEAD
                       onClick={() => handleOptionClick('close_chat')}
                       className="text-xs"
                     >
                       ❌ Close Chat
-=======
-                      onClick={() => handleFeedback('down')}
-                      className="flex-1"
-                    >
-                      <ThumbsDown className="w-4 h-4 mr-1" />
-                      No
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
                     </Button>
                   </div>
                 </CardContent>
@@ -2227,7 +1980,6 @@ const SymptomChecker: React.FC = () => {
             </div>
           </div>
         )}
-<<<<<<< HEAD
         
         {/* Loading vets indicator */}
         {loadingVets && (
@@ -2293,17 +2045,6 @@ const SymptomChecker: React.FC = () => {
             >
               <XCircle className="w-4 h-4 mr-2" />
               Close Chat
-=======
-
-        {/* Emergency CTA */}
-        {analysisResult && analysisResult.riskLevel === 'Emergency' && (
-          <div className="flex justify-center">
-            <Button
-              onClick={() => navigate('/providers')}
-              className="bg-red-600 hover:bg-red-700"
-            >
-              Find Nearest Emergency Vet
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
             </Button>
           </div>
         )}
@@ -2311,7 +2052,6 @@ const SymptomChecker: React.FC = () => {
         <div ref={messagesEndRef} />
       </div>
 
-<<<<<<< HEAD
       {/* Vet Search Modal - Matching Welcome Page Style */}
       <Dialog open={showVetSearchModal} onOpenChange={setShowVetSearchModal}>
         <DialogContent className="sm:max-w-[500px]">
@@ -2552,10 +2292,6 @@ const SymptomChecker: React.FC = () => {
 
       {/* Combined Input Area with Media Upload */}
       {conversationState === 'symptoms' && !showPincodeInput && (
-=======
-      {/* Combined Input Area with Media Upload */}
-      {conversationState === 'symptoms' && (
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
         <div className="bg-white border-t px-4 py-3 flex-shrink-0">
           {/* Uploaded Media Preview */}
           {(collectedData.images.length > 0 || collectedData.video) && (
@@ -2680,7 +2416,6 @@ const SymptomChecker: React.FC = () => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-<<<<<<< HEAD
 
       {/* Close Chat Feedback Dialog */}
       <AlertDialog open={showCloseChatDialog} onOpenChange={setShowCloseChatDialog}>
@@ -2881,8 +2616,6 @@ const SymptomChecker: React.FC = () => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-=======
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     </div>
   );
 };

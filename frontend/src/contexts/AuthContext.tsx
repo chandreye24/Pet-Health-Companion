@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User } from '@/types';
-<<<<<<< HEAD
 import { authApi, SignupData, LoginData, convertLocation } from '@/lib/api';
 
 interface AuthContextType {
@@ -11,22 +10,12 @@ interface AuthContextType {
   updateUser: (updates: Partial<User>) => Promise<void>;
   isAuthenticated: boolean;
   loading: boolean;
-=======
-
-interface AuthContextType {
-  user: User | null;
-  login: (email: string, phone: string) => Promise<void>;
-  logout: () => void;
-  updateUser: (updates: Partial<User>) => void;
-  isAuthenticated: boolean;
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-<<<<<<< HEAD
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -182,44 +171,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         console.error('Update user error:', error);
         throw error;
       }
-=======
-
-  useEffect(() => {
-    // Load user from localStorage on mount
-    const storedUser = localStorage.getItem('pet_health_user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
-
-  const login = async (email: string, phone: string) => {
-    // Mock login - in real app, this would verify OTP
-    const newUser: User = {
-      id: `user_${Date.now()}`,
-      email,
-      phone,
-      name: email.split('@')[0],
-      location: null,
-      createdAt: new Date().toISOString(),
-      termsAccepted: true,
-      ageConfirmed: true,
-    };
-    
-    setUser(newUser);
-    localStorage.setItem('pet_health_user', JSON.stringify(newUser));
-  };
-
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('pet_health_user');
-  };
-
-  const updateUser = (updates: Partial<User>) => {
-    if (user) {
-      const updatedUser = { ...user, ...updates };
-      setUser(updatedUser);
-      localStorage.setItem('pet_health_user', JSON.stringify(updatedUser));
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     }
   };
 
@@ -228,17 +179,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       value={{
         user,
         login,
-<<<<<<< HEAD
         signup,
         logout,
         updateUser,
         isAuthenticated: !!user,
         loading,
-=======
-        logout,
-        updateUser,
-        isAuthenticated: !!user,
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
       }}
     >
       {children}
