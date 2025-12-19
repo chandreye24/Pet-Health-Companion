@@ -6,38 +6,22 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-<<<<<<< HEAD
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
-=======
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 
 const Signup: React.FC = () => {
   const navigate = useNavigate();
-<<<<<<< HEAD
   const { signup } = useAuth();
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-=======
-  const { login } = useAuth();
-  const [authMethod, setAuthMethod] = useState<'password' | 'otp'>('password');
-  const [step, setStep] = useState<'details' | 'otp'>('details');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [otp, setOtp] = useState('');
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [ageConfirmed, setAgeConfirmed] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
-<<<<<<< HEAD
   const [loading, setLoading] = useState(false);
 
   const validatePassword = (pwd: string): { isValid: boolean; errors: string[] } => {
@@ -86,20 +70,6 @@ const Signup: React.FC = () => {
   };
 
   const handleSignup = async (e: React.FormEvent) => {
-=======
-
-  const getPasswordStrength = (pwd: string): { strength: string; color: string } => {
-    if (pwd.length === 0) return { strength: '', color: '' };
-    if (pwd.length < 6) return { strength: 'Weak', color: 'text-red-500' };
-    if (pwd.length < 10) return { strength: 'Medium', color: 'text-yellow-500' };
-    if (pwd.length >= 10 && /[A-Z]/.test(pwd) && /[0-9]/.test(pwd)) {
-      return { strength: 'Strong', color: 'text-green-500' };
-    }
-    return { strength: 'Medium', color: 'text-yellow-500' };
-  };
-
-  const handlePasswordSignup = async (e: React.FormEvent) => {
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     e.preventDefault();
     
     if (!ageConfirmed) {
@@ -112,7 +82,6 @@ const Signup: React.FC = () => {
       return;
     }
 
-<<<<<<< HEAD
     if (!name.trim()) {
       toast.error('Please enter your name');
       return;
@@ -121,10 +90,6 @@ const Signup: React.FC = () => {
     const passwordValidation = validatePassword(password);
     if (!passwordValidation.isValid) {
       toast.error(`Password requirements: ${passwordValidation.errors.join(', ')}`);
-=======
-    if (password.length < 6) {
-      toast.error('Password must be at least 6 characters');
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
       return;
     }
 
@@ -133,7 +98,6 @@ const Signup: React.FC = () => {
       return;
     }
 
-<<<<<<< HEAD
     setLoading(true);
     try {
       await signup({
@@ -149,48 +113,6 @@ const Signup: React.FC = () => {
       toast.error(error instanceof Error ? error.message : 'Failed to create account');
     } finally {
       setLoading(false);
-=======
-    try {
-      await login(email, phone);
-      toast.success('Account created successfully!');
-      navigate('/onboarding');
-    } catch (error) {
-      toast.error('Failed to create account');
-    }
-  };
-
-  const handleSendOTP = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!ageConfirmed) {
-      toast.error('Please confirm you are 18 years or older');
-      return;
-    }
-    
-    if (!termsAccepted) {
-      toast.error('Please accept the terms and conditions');
-      return;
-    }
-
-    toast.success('OTP sent to your phone!');
-    setStep('otp');
-  };
-
-  const handleVerifyOTP = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (otp.length !== 6) {
-      toast.error('Please enter a valid 6-digit OTP');
-      return;
-    }
-
-    try {
-      await login(email, phone);
-      toast.success('Account created successfully!');
-      navigate('/onboarding');
-    } catch (error) {
-      toast.error('Failed to create account');
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     }
   };
 
@@ -204,11 +126,7 @@ const Signup: React.FC = () => {
             <Button
               variant="ghost"
               size="icon"
-<<<<<<< HEAD
               onClick={() => navigate('/')}
-=======
-              onClick={() => step === 'otp' ? setStep('details') : navigate('/')}
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
             >
               <ArrowLeft className="w-5 h-5" />
             </Button>
@@ -216,7 +134,6 @@ const Signup: React.FC = () => {
           </div>
           <CardTitle className="text-2xl">Create Account</CardTitle>
           <CardDescription>
-<<<<<<< HEAD
             Join Pet Health Companion today
           </CardDescription>
         </CardHeader>
@@ -460,230 +377,6 @@ const Signup: React.FC = () => {
               {loading ? 'Creating Account...' : 'Create Account'}
             </Button>
           </form>
-=======
-            {step === 'details' 
-              ? 'Choose your preferred signup method'
-              : 'Enter the OTP sent to your phone'}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          {step === 'details' ? (
-            <Tabs value={authMethod} onValueChange={(v) => setAuthMethod(v as 'password' | 'otp')} className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-6">
-                <TabsTrigger value="password">Password</TabsTrigger>
-                <TabsTrigger value="otp">OTP</TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="password">
-                <form onSubmit={handlePasswordSignup} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="your@email.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="h-12"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Phone Number</Label>
-                    <Input
-                      id="phone"
-                      type="tel"
-                      placeholder="+91 9876543210"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      required
-                      className="h-12"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="password">Password</Label>
-                    <div className="relative">
-                      <Input
-                        id="password"
-                        type={showPassword ? 'text' : 'password'}
-                        placeholder="Create a strong password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        className="h-12 pr-10"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                      >
-                        {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                      </button>
-                    </div>
-                    {password && (
-                      <p className={`text-xs ${passwordStrength.color}`}>
-                        Password strength: {passwordStrength.strength}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="confirmPassword">Confirm Password</Label>
-                    <div className="relative">
-                      <Input
-                        id="confirmPassword"
-                        type={showConfirmPassword ? 'text' : 'password'}
-                        placeholder="Re-enter your password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        required
-                        className="h-12 pr-10"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                      >
-                        {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                      </button>
-                    </div>
-                    {confirmPassword && password !== confirmPassword && (
-                      <p className="text-xs text-red-500">Passwords do not match</p>
-                    )}
-                  </div>
-
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="age"
-                      checked={ageConfirmed}
-                      onCheckedChange={(checked) => setAgeConfirmed(checked as boolean)}
-                    />
-                    <label
-                      htmlFor="age"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      I confirm I am 18 years or older
-                    </label>
-                  </div>
-
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="terms"
-                      checked={termsAccepted}
-                      onCheckedChange={(checked) => setTermsAccepted(checked as boolean)}
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      I accept the terms and conditions
-                    </label>
-                  </div>
-
-                  <Button type="submit" className="w-full h-12 bg-[#FF385C] hover:bg-[#E31C5F] text-white font-semibold">
-                    Create Account
-                  </Button>
-                </form>
-              </TabsContent>
-
-              <TabsContent value="otp">
-                <form onSubmit={handleSendOTP} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="email-otp">Email</Label>
-                    <Input
-                      id="email-otp"
-                      type="email"
-                      placeholder="your@email.com"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="h-12"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="phone-otp">Phone Number</Label>
-                    <Input
-                      id="phone-otp"
-                      type="tel"
-                      placeholder="+91 9876543210"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      required
-                      className="h-12"
-                    />
-                  </div>
-
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="age-otp"
-                      checked={ageConfirmed}
-                      onCheckedChange={(checked) => setAgeConfirmed(checked as boolean)}
-                    />
-                    <label
-                      htmlFor="age-otp"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      I confirm I am 18 years or older
-                    </label>
-                  </div>
-
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="terms-otp"
-                      checked={termsAccepted}
-                      onCheckedChange={(checked) => setTermsAccepted(checked as boolean)}
-                    />
-                    <label
-                      htmlFor="terms-otp"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      I accept the terms and conditions
-                    </label>
-                  </div>
-
-                  <Button type="submit" className="w-full h-12 bg-[#FF385C] hover:bg-[#E31C5F] text-white font-semibold">
-                    Send OTP
-                  </Button>
-                </form>
-              </TabsContent>
-            </Tabs>
-          ) : (
-            <form onSubmit={handleVerifyOTP} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="otp">Enter OTP</Label>
-                <Input
-                  id="otp"
-                  type="text"
-                  placeholder="123456"
-                  maxLength={6}
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
-                  required
-                  className="h-12 text-center text-2xl tracking-widest"
-                />
-                <p className="text-sm text-muted-foreground">
-                  OTP sent to {phone}
-                </p>
-              </div>
-
-              <Button type="submit" className="w-full h-12 bg-[#FF385C] hover:bg-[#E31C5F] text-white font-semibold">
-                Verify & Create Account
-              </Button>
-
-              <Button
-                type="button"
-                variant="outline"
-                className="w-full h-12"
-                onClick={() => toast.success('OTP resent!')}
-              >
-                Resend OTP
-              </Button>
-            </form>
-          )}
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
 
           <div className="text-center text-sm mt-6">
             Already have an account?{' '}

@@ -25,7 +25,6 @@ export const analyzeSymptoms = (
   images: string[],
   category: SymptomCategory,
   healthSubcategory?: HealthSubcategory,
-<<<<<<< HEAD
   video?: string,
   petContext?: { name: string; breed: string; age: number; conditions: string[]; allergies: string[]; history?: any[] }
 ): Omit<SymptomCheck, 'id' | 'petId' | 'userId' | 'timestamp'> => {
@@ -59,12 +58,6 @@ export const analyzeSymptoms = (
     }
   }
   
-=======
-  video?: string
-): Omit<SymptomCheck, 'id' | 'petId' | 'userId' | 'timestamp'> => {
-  const lowerSymptoms = symptoms.toLowerCase();
-  
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
   // Check for emergency keywords
   const hasEmergency = EMERGENCY_KEYWORDS.some(keyword => 
     lowerSymptoms.includes(keyword)
@@ -118,11 +111,7 @@ export const analyzeSymptoms = (
         '⏱️ Do not wait - every minute counts in an emergency',
         '💊 Bring any medications your pet is currently taking',
       ],
-<<<<<<< HEAD
       reasoning: 'I understand emergency vet visits are expensive and stressful, but waiting with these symptoms carries significant risk. The symptoms you\'ve described indicate a medical emergency that requires immediate professional care. Please take your pet to the emergency vet now. If there\'s any question, call the emergency vet and describe the symptoms - they can help assess urgency, but based on what you\'ve described, immediate care is needed.' + historyInsight,
-=======
-      reasoning: 'I understand emergency vet visits are expensive and stressful, but waiting with these symptoms carries significant risk. The symptoms you\'ve described indicate a medical emergency that requires immediate professional care. Please take your pet to the emergency vet now. If there\'s any question, call the emergency vet and describe the symptoms - they can help assess urgency, but based on what you\'ve described, immediate care is needed.',
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     };
   }
   
@@ -189,11 +178,7 @@ export const analyzeSymptoms = (
         '📝 Document all symptoms with times and severity',
         '🏠 Keep your pet comfortable and limit stress',
       ],
-<<<<<<< HEAD
       reasoning: 'These symptoms indicate a condition that requires professional veterinary attention soon. While not immediately life-threatening, prompt care is recommended to prevent the condition from worsening and to ensure your pet receives appropriate treatment. Early intervention often leads to better outcomes and can prevent more serious complications.' + historyInsight,
-=======
-      reasoning: 'These symptoms indicate a condition that requires professional veterinary attention soon. While not immediately life-threatening, prompt care is recommended to prevent the condition from worsening and to ensure your pet receives appropriate treatment. Early intervention often leads to better outcomes and can prevent more serious complications.',
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     };
   }
   
@@ -259,11 +244,7 @@ export const analyzeSymptoms = (
         '🏠 Provide comfortable rest area',
         '📞 Contact vet if symptoms worsen or persist',
       ],
-<<<<<<< HEAD
       reasoning: 'Based on the symptoms described, this appears to be a minor issue that may resolve with basic home care and monitoring. However, it\'s important to watch for any changes. If symptoms persist beyond 48 hours, worsen, or if you notice any concerning changes in your pet\'s behavior or condition, please consult with your veterinarian. Trust your instincts - if something feels wrong, it\'s always better to err on the side of caution.' + historyInsight,
-=======
-      reasoning: 'Based on the symptoms described, this appears to be a minor issue that may resolve with basic home care and monitoring. However, it\'s important to watch for any changes. If symptoms persist beyond 48 hours, worsen, or if you notice any concerning changes in your pet\'s behavior or condition, please consult with your veterinarian. Trust your instincts - if something feels wrong, it\'s always better to err on the side of caution.',
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     };
   }
   
@@ -325,11 +306,7 @@ export const analyzeSymptoms = (
       '🍖 Ensure proper nutrition and exercise',
       '💊 Keep preventive medications up to date',
     ],
-<<<<<<< HEAD
     reasoning: 'Your pet appears to be doing well based on the information provided. Continue with regular care and monitoring. Remember that you know your pet best - if you notice any changes in behavior, appetite, energy level, or anything that seems unusual, don\'t hesitate to consult with your veterinarian. Regular preventive care and early detection are key to maintaining your pet\'s long-term health and wellbeing.' + historyInsight,
-=======
-    reasoning: 'Your pet appears to be doing well based on the information provided. Continue with regular care and monitoring. Remember that you know your pet best - if you notice any changes in behavior, appetite, energy level, or anything that seems unusual, don\'t hesitate to consult with your veterinarian. Regular preventive care and early detection are key to maintaining your pet\'s long-term health and wellbeing.',
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
   };
 };
 

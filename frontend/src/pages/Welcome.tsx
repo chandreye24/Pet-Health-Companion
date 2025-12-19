@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
 import { PawPrint, Zap, Heart, Shield, Camera, MapPin, Bell, Star, Stethoscope, Play, Mail, BookOpen, Facebook, Twitter, Instagram, Youtube, Phone, MapPinIcon, HelpCircle, Users, Navigation, Microscope, ArrowRight, LogOut, User, Home, UserCircle } from 'lucide-react';
-=======
-import { PawPrint, Zap, Heart, Shield, Camera, MapPin, Bell, Star, Stethoscope, Play, Mail, BookOpen, Facebook, Twitter, Instagram, Youtube, Phone, MapPinIcon, HelpCircle, Users, Navigation, Microscope, ArrowRight } from 'lucide-react';
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-<<<<<<< HEAD
 import { Label } from '@/components/ui/label';
 import {
   Dialog,
@@ -32,15 +27,10 @@ import {
 import { getUserLocation, getOpenProvidersNearby } from '@/utils/providerUtils';
 import { MOCK_PROVIDERS } from '@/data/mockData';
 import { useAuth } from '@/contexts/AuthContext';
-=======
-import { getUserLocation, getOpenProvidersNearby } from '@/utils/providerUtils';
-import { MOCK_PROVIDERS } from '@/data/mockData';
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
 import { toast } from 'sonner';
 
 const Welcome: React.FC = () => {
   const navigate = useNavigate();
-<<<<<<< HEAD
   const { user, logout, isAuthenticated } = useAuth();
   const [isLoadingVets, setIsLoadingVets] = useState(false);
   const [isLoadingDiagnostics, setIsLoadingDiagnostics] = useState(false);
@@ -66,10 +56,6 @@ const Welcome: React.FC = () => {
       .toUpperCase()
       .slice(0, 2);
   };
-=======
-  const [isLoadingVets, setIsLoadingVets] = useState(false);
-  const [isLoadingDiagnostics, setIsLoadingDiagnostics] = useState(false);
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
 
   const features = [
     {
@@ -177,7 +163,6 @@ const Welcome: React.FC = () => {
     },
   ];
 
-<<<<<<< HEAD
   const handleFindNearbyVets = () => {
     // Show pin code dialog instead of using geolocation
     setShowPincodeDialog(true);
@@ -224,63 +209,6 @@ const Welcome: React.FC = () => {
       handlePincodeSubmit();
     } else {
       handleCitySubmit();
-=======
-  const handleFindNearbyVets = async () => {
-    setIsLoadingVets(true);
-    
-    try {
-      // Get user location
-      const location = await getUserLocation();
-      
-      // Get open providers within 5KM
-      const openNearbyProviders = getOpenProvidersNearby(
-        MOCK_PROVIDERS,
-        location.latitude,
-        location.longitude,
-        5
-      );
-
-      if (openNearbyProviders.length === 0) {
-        // Try expanding to 10KM
-        const expandedProviders = getOpenProvidersNearby(
-          MOCK_PROVIDERS,
-          location.latitude,
-          location.longitude,
-          10
-        );
-
-        if (expandedProviders.length === 0) {
-          toast.info('No open clinics found nearby. Showing all clinics in your area.');
-          navigate('/providers');
-        } else {
-          toast.success(`Found ${expandedProviders.length} open clinic(s) within 10KM`);
-          navigate('/providers', { 
-            state: { 
-              openNow: true, 
-              userLocation: location,
-              maxDistance: 10,
-              providers: expandedProviders 
-            } 
-          });
-        }
-      } else {
-        toast.success(`Found ${openNearbyProviders.length} open clinic(s) within 5KM`);
-        navigate('/providers', { 
-          state: { 
-            openNow: true, 
-            userLocation: location,
-            maxDistance: 5,
-            providers: openNearbyProviders 
-          } 
-        });
-      }
-    } catch (error) {
-      console.error('Error finding nearby vets:', error);
-      toast.error('Unable to get your location. Showing all clinics.');
-      navigate('/providers');
-    } finally {
-      setIsLoadingVets(false);
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     }
   };
 
@@ -330,7 +258,6 @@ const Welcome: React.FC = () => {
       <div className="relative z-10 min-h-screen flex flex-col">
         {/* Header */}
         <header className="p-3 md:p-4">
-<<<<<<< HEAD
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-white">
               <PawPrint className="w-6 h-6" />
@@ -392,11 +319,6 @@ const Welcome: React.FC = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             )}
-=======
-          <div className="flex items-center gap-2 text-white">
-            <PawPrint className="w-6 h-6" />
-            <span className="text-lg font-bold">Pet Health Companion</span>
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
           </div>
         </header>
 
@@ -406,11 +328,7 @@ const Welcome: React.FC = () => {
             {/* Hero Text */}
             <div className="text-center mb-6">
               <h1 className="text-3xl md:text-5xl font-bold text-white mb-3 leading-tight">
-<<<<<<< HEAD
-                Our 24/7 Pet Health Companion
-=======
                 Our Pet's 24/7 Health Companion
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
               </h1>
               <p className="text-lg md:text-xl text-white/90 mb-6 max-w-2xl mx-auto">
                 India's first AI-powered pet health app. Instant guidance when your furry friend needs it most.
@@ -469,15 +387,9 @@ const Welcome: React.FC = () => {
                           <p className="text-white/90 text-sm leading-tight">Instant assessment - No signup!</p>
                         </div>
                       </div>
-<<<<<<< HEAD
                       <Button
                         size="sm"
                         onClick={() => navigate('/symptom-checker', { state: { fromLandingPage: true } })}
-=======
-                      <Button 
-                        size="sm"
-                        onClick={() => navigate('/symptom-checker')}
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
                         className="bg-white text-[#FF385C] hover:bg-gray-100 font-semibold px-4 py-2 text-sm rounded-lg shadow-lg transition-all hover:shadow-xl whitespace-nowrap flex-shrink-0"
                       >
                         Check Now →
@@ -485,7 +397,6 @@ const Welcome: React.FC = () => {
                     </div>
                   </div>
 
-<<<<<<< HEAD
                   {/* Get Started and Login Buttons - Only show when not authenticated */}
                   {!isAuthenticated && (
                     <div className="flex gap-3">
@@ -504,41 +415,15 @@ const Welcome: React.FC = () => {
                       </Button>
                     </div>
                   )}
-=======
-                  {/* Get Started and Login Buttons */}
-                  <div className="flex gap-3">
-                    <Button 
-                      onClick={() => navigate('/signup')}
-                      className="bg-[#FF385C] hover:bg-[#E31C5F] text-white font-semibold px-6 py-6 text-base rounded-lg shadow-lg transition-all hover:shadow-xl flex-1"
-                    >
-                      Get Started Free
-                    </Button>
-                    <Button 
-                      variant="outline"
-                      onClick={() => navigate('/login')}
-                      className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border-2 border-white/30 font-semibold px-6 py-6 text-base rounded-lg transition-all flex-1"
-                    >
-                      Login
-                    </Button>
-                  </div>
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
 
                   {/* Find Nearby Services - Two Buttons Side by Side */}
                   <div className="flex gap-3">
                     <Button
                       onClick={handleFindNearbyVets}
-<<<<<<< HEAD
                       className="bg-white/95 hover:bg-white text-gray-900 font-semibold px-6 py-6 text-base rounded-lg shadow-lg transition-all hover:shadow-xl border-2 border-white/50 flex-1"
                     >
                       <Navigation className="w-5 h-5 mr-2" />
                       Find Nearby Vets
-=======
-                      disabled={isLoadingVets}
-                      className="bg-white/95 hover:bg-white text-gray-900 font-semibold px-6 py-6 text-base rounded-lg shadow-lg transition-all hover:shadow-xl border-2 border-white/50 flex-1"
-                    >
-                      <Navigation className="w-5 h-5 mr-2" />
-                      {isLoadingVets ? 'Finding...' : 'Find Nearby Vets'}
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
                     </Button>
                     <Button
                       onClick={handleFindNearbyDiagnostics}
@@ -648,11 +533,7 @@ const Welcome: React.FC = () => {
                   {/* AI Health Check Link */}
                   <div className="border-t border-gray-200 pt-4">
                     <button
-<<<<<<< HEAD
                       onClick={() => navigate('/symptom-checker', { state: { fromLandingPage: true } })}
-=======
-                      onClick={() => navigate('/symptom-checker')}
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
                       className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-[#FF385C]/5 to-[#E31C5F]/5 hover:from-[#FF385C]/10 hover:to-[#E31C5F]/10 rounded-lg transition-all group"
                     >
                       <div className="flex items-center gap-2">
@@ -693,11 +574,7 @@ const Welcome: React.FC = () => {
                   {/* AI Health Check Link */}
                   <div className="border-t border-gray-200 pt-4">
                     <button
-<<<<<<< HEAD
                       onClick={() => navigate('/symptom-checker', { state: { fromLandingPage: true } })}
-=======
-                      onClick={() => navigate('/symptom-checker')}
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
                       className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-[#FF385C]/5 to-[#E31C5F]/5 hover:from-[#FF385C]/10 hover:to-[#E31C5F]/10 rounded-lg transition-all group"
                     >
                       <div className="flex items-center gap-2">
@@ -876,7 +753,6 @@ const Welcome: React.FC = () => {
           </div>
         </footer>
       </div>
-<<<<<<< HEAD
 
       {/* Search Dialog - PIN Code or City */}
       <Dialog open={showPincodeDialog} onOpenChange={setShowPincodeDialog}>
@@ -962,8 +838,6 @@ const Welcome: React.FC = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-=======
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     </div>
   );
 };

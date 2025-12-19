@@ -1,17 +1,13 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Pet, MedicalHistoryEntry } from '@/types';
 import { useAuth } from './AuthContext';
-<<<<<<< HEAD
 import { petApi, PetResponse, MedicalHistoryResponse } from '@/lib/api';
 import { toast } from 'sonner';
-=======
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
 
 interface PetContextType {
   pets: Pet[];
   selectedPet: Pet | null;
   medicalHistory: Record<string, MedicalHistoryEntry[]>;
-<<<<<<< HEAD
   addPet: (pet: Omit<Pet, 'id' | 'userId' | 'createdAt'>) => Promise<void>;
   updatePet: (id: string, updates: Partial<Pet>) => Promise<void>;
   deletePet: (id: string) => Promise<void>;
@@ -20,19 +16,10 @@ interface PetContextType {
   getMedicalHistory: (petId: string) => MedicalHistoryEntry[];
   loadPets: () => Promise<void>;
   isLoading: boolean;
-=======
-  addPet: (pet: Omit<Pet, 'id' | 'userId' | 'createdAt'>) => void;
-  updatePet: (id: string, updates: Partial<Pet>) => void;
-  deletePet: (id: string) => void;
-  selectPet: (id: string) => void;
-  addMedicalHistory: (petId: string, entry: Omit<MedicalHistoryEntry, 'id' | 'petId'>) => void;
-  getMedicalHistory: (petId: string) => MedicalHistoryEntry[];
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
 }
 
 const PetContext = createContext<PetContextType | undefined>(undefined);
 
-<<<<<<< HEAD
 // Helper function to convert API response to Pet type
 const convertPetResponse = (response: PetResponse): Pet => ({
   id: response.id,
@@ -60,14 +47,11 @@ const convertMedicalHistoryResponse = (response: MedicalHistoryResponse): Medica
   notes: response.notes,
 });
 
-=======
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
 export const PetProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useAuth();
   const [pets, setPets] = useState<Pet[]>([]);
   const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
   const [medicalHistory, setMedicalHistory] = useState<Record<string, MedicalHistoryEntry[]>>({});
-<<<<<<< HEAD
   const [isLoading, setIsLoading] = useState(false);
 
   // Load pets from API when user logs in
@@ -105,50 +89,11 @@ export const PetProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     if (!user) {
       throw new Error('User must be logged in to add a pet');
     }
-=======
-
-  useEffect(() => {
-    if (user) {
-      const storedPets = localStorage.getItem(`pets_${user.id}`);
-      const storedHistory = localStorage.getItem(`medical_history_${user.id}`);
-      
-      if (storedPets) {
-        const loadedPets = JSON.parse(storedPets);
-        setPets(loadedPets);
-        if (loadedPets.length > 0 && !selectedPet) {
-          setSelectedPet(loadedPets[0]);
-        }
-      }
-      
-      if (storedHistory) {
-        setMedicalHistory(JSON.parse(storedHistory));
-      }
-    }
-  }, [user]);
-
-  const savePets = (updatedPets: Pet[]) => {
-    if (user) {
-      setPets(updatedPets);
-      localStorage.setItem(`pets_${user.id}`, JSON.stringify(updatedPets));
-    }
-  };
-
-  const saveHistory = (updatedHistory: Record<string, MedicalHistoryEntry[]>) => {
-    if (user) {
-      setMedicalHistory(updatedHistory);
-      localStorage.setItem(`medical_history_${user.id}`, JSON.stringify(updatedHistory));
-    }
-  };
-
-  const addPet = (petData: Omit<Pet, 'id' | 'userId' | 'createdAt'>) => {
-    if (!user) return;
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     
     if (pets.length >= 10) {
       throw new Error('Maximum 10 pet profiles allowed');
     }
 
-<<<<<<< HEAD
     try {
       const petPayload = {
         name: petData.name,
@@ -241,40 +186,6 @@ export const PetProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       console.error('Failed to delete pet:', error);
       toast.error('Failed to delete pet profile');
       throw error;
-=======
-    const newPet: Pet = {
-      ...petData,
-      id: `pet_${Date.now()}`,
-      userId: user.id,
-      createdAt: new Date().toISOString(),
-    };
-
-    const updatedPets = [...pets, newPet];
-    savePets(updatedPets);
-    
-    if (!selectedPet) {
-      setSelectedPet(newPet);
-    }
-  };
-
-  const updatePet = (id: string, updates: Partial<Pet>) => {
-    const updatedPets = pets.map(pet =>
-      pet.id === id ? { ...pet, ...updates } : pet
-    );
-    savePets(updatedPets);
-    
-    if (selectedPet?.id === id) {
-      setSelectedPet({ ...selectedPet, ...updates });
-    }
-  };
-
-  const deletePet = (id: string) => {
-    const updatedPets = pets.filter(pet => pet.id !== id);
-    savePets(updatedPets);
-    
-    if (selectedPet?.id === id) {
-      setSelectedPet(updatedPets[0] || null);
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
     }
   };
 
@@ -285,7 +196,6 @@ export const PetProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
-<<<<<<< HEAD
   const addMedicalHistory = async (petId: string, entry: Omit<MedicalHistoryEntry, 'id' | 'petId'>) => {
     try {
       const response = await petApi.addMedicalHistory(petId, {
@@ -309,21 +219,6 @@ export const PetProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       toast.error('Failed to add medical history');
       throw error;
     }
-=======
-  const addMedicalHistory = (petId: string, entry: Omit<MedicalHistoryEntry, 'id' | 'petId'>) => {
-    const newEntry: MedicalHistoryEntry = {
-      ...entry,
-      id: `history_${Date.now()}`,
-      petId,
-    };
-
-    const updatedHistory = {
-      ...medicalHistory,
-      [petId]: [...(medicalHistory[petId] || []), newEntry],
-    };
-    
-    saveHistory(updatedHistory);
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
   };
 
   const getMedicalHistory = (petId: string): MedicalHistoryEntry[] => {
@@ -342,11 +237,8 @@ export const PetProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         selectPet,
         addMedicalHistory,
         getMedicalHistory,
-<<<<<<< HEAD
         loadPets,
         isLoading,
-=======
->>>>>>> 32c98afaf36a2d7b0db3ed893c2ec92b3046bd01
       }}
     >
       {children}
