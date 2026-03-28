@@ -17,8 +17,12 @@ services:
       - key: JWT_ALGORITHM
         value: HS256
       - key: ACCESS_TOKEN_EXPIRE_MINUTES
-        value: 10080
+        value: 1440
+      - key: ENVIRONMENT
+        value: production
       - key: CORS_ORIGINS
+        sync: false
+      - key: ALLOWED_HOSTS
         sync: false
       - key: GEMINI_API_KEY
         sync: false
