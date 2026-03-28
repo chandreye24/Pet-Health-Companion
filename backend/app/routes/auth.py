@@ -1,10 +1,13 @@
 """
 Authentication routes for user signup, login, and profile management
 """
-from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi import APIRouter, HTTPException, status, Depends, Request
 from typing import Dict, Any
 from datetime import datetime
 from bson import ObjectId
+from slowapi import Limiter
+from slowapi.util import get_remote_address
+import re
 
 from app.models.user import UserCreate, UserResponse, UserUpdate, UserInDB
 from app.utils.security import create_access_token
@@ -13,10 +16,28 @@ from app.database import get_database
 
 
 router = APIRouter(prefix="/api/v1/auth", tags=["Authentication"])
+limiter = Limiter(key_func=get_remote_address)
+
+
+def validate_email(email: str) -> bool:
+    """Validate email format"""
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return re.match(pattern, email) is not None
+
+
+def sanitize_string(text: str, max_length: int = 500) -> str:
+    """Sanitize string input to prevent XSS and injection attacks"""
+    if not text:
+        return text
+    # Remove any potential HTML/script tags
+    text = re.sub(r'<[^>]*>', '', text)
+    # Limit length
+    return text[:max_length].strip()
 
 
 @router.post("/signup", status_code=status.HTTP_200_OK)
-async def signup(user_data: UserCreate) -> Dict[str, Any]:
+@limiter.limit("5/minute")
+async def signup(request: Request, user_data: UserCreate) -> Dict[str, Any]:
     """
     Register a new user
     
@@ -30,6 +51,17 @@ async def signup(user_data: UserCreate) -> Dict[str, Any]:
         HTTPException: If user already exists or validation fails
     """
     db = get_database()
+    
+    # Validate email format
+    if not validate_email(user_data.email):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid email format"
+        )
+    
+    # Sanitize inputs
+    user_data.name = sanitize_string(user_data.name, max_length=100)
+    user_data.email = user_data.email.lower().strip()
     
     # Validate terms and age confirmation
     if not user_data.terms_accepted:
@@ -87,11 +119,13 @@ async def signup(user_data: UserCreate) -> Dict[str, Any]:
 
 
 @router.post("/login", status_code=status.HTTP_200_OK)
-async def login(login_data: Dict[str, str]) -> Dict[str, Any]:
+@limiter.limit("5/minute")
+async def login(request: Request, login_data: Dict[str, str]) -> Dict[str, Any]:
     """
     Login existing user
     
     Args:
+        request: FastAPI request object (for rate limiting)
         login_data: Dict with email
     
     Returns:
@@ -108,6 +142,14 @@ async def login(login_data: Dict[str, str]) -> Dict[str, Any]:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Email is required"
+        )
+    
+    # Validate and sanitize email
+    email = email.lower().strip()
+    if not validate_email(email):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid email format"
         )
     
     # Find user
