@@ -13,7 +13,7 @@
 Multiple sensitive credentials have been exposed:
 
 1. ✅ **Old Gemini API Key** - Already known to be compromised (GitHub alert)
-2. ❌ **New Gemini API Key** - Shared in message: `AIzaSyDoytX1yRBqkhJTGbauasEHPPbSKmEdKcc` (NOW COMPROMISED)
+2. ❌ **New Gemini API Key** - Shared in message: `[REDACTED — key was compromised and has been rotated]` (NOW COMPROMISED)
 3. ⚠️ **MongoDB Password** - Visible in .env file
 4. ⚠️ **JWT Secret Key** - Visible in .env file
 
@@ -27,8 +27,8 @@ Multiple sensitive credentials have been exposed:
 
 1. Visit: https://console.cloud.google.com/apis/credentials
 2. Find BOTH keys:
-   - Old key: `AIzaSyA6xyU1h4bUkn4rbkD0aUnUtig-B3R2k1s`
-   - New key: `AIzaSyDoytX1yRBqkhJTGbauasEHPPbSKmEdKcc`
+   - Old key: `[REDACTED — compromised, delete from Google Cloud Console]`
+   - New key: `[REDACTED — compromised, delete from Google Cloud Console]`
 3. **DELETE BOTH KEYS IMMEDIATELY**
 4. Create a BRAND NEW restricted API key
 5. **DO NOT share the new key anywhere**

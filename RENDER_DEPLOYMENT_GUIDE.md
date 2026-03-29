@@ -28,7 +28,7 @@ Your Render service at https://pet-health-companion.onrender.com/ is showing "Th
      - `DATABASE_NAME` - Your database name (e.g., "pet_health_companion")
      - `JWT_SECRET_KEY` - A secure random string for JWT tokens
      - `CORS_ORIGINS` - Your frontend URL (e.g., "https://your-frontend.vercel.app")
-     - `GEMINI_API_KEY` - Your Gemini API key: `AIzaSyA6xyU1h4bUkn4rbkD0aUnUtig-B3R2k1s`
+     - `GEMINI_API_KEY` - Your Gemini API key (get from Google Cloud Console)
 
 ### Option 2: Create New Service
 
@@ -62,7 +62,7 @@ If you can't resume the existing service or want to start fresh:
    JWT_ALGORITHM=HS256
    ACCESS_TOKEN_EXPIRE_MINUTES=10080
    CORS_ORIGINS=<your-frontend-url>
-   GEMINI_API_KEY=AIzaSyA6xyU1h4bUkn4rbkD0aUnUtig-B3R2k1s
+   GEMINI_API_KEY=<your-gemini-api-key>
    ```
 
 5. **Deploy**

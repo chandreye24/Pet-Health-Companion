@@ -32,9 +32,9 @@ Click on your service → **Environment** tab → Update these variables:
 ```bash
 # Required - Update These
 GEMINI_API_KEY=<your-brand-new-api-key>
-MONGODB_URL=mongodb+srv://chandreye24_db_user:1gPaFT9iIa8YvkXd@cluster0.ihhsdwc.mongodb.net/?appName=Cluster0
+MONGODB_URL=mongodb+srv://chandreye24_db_user:<YOUR-NEW-PASSWORD>@cluster0.ihhsdwc.mongodb.net/?appName=Cluster0
 DATABASE_NAME=pet_health_companion
-JWT_SECRET_KEY=09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7
+JWT_SECRET_KEY=<generate-with: openssl rand -hex 32>
 
 # Security Settings - NEW
 ENVIRONMENT=production
